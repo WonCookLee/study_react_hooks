@@ -1,23 +1,20 @@
-import logo from './logo.svg';
+import { useEffect } from 'react';
 import './App.css';
+import useAxios from './hooks/useAxios';
+
 
 function App() {
+  const {loading, error, data, refetch} = useAxios({
+    url : "https://yts.mx/api/v2/list_movies.json"
+  });
+  console.log(`loading : ${loading}, error : ${error}, data : ${JSON.stringify(data)}`);
+
   return (
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+      <h1>Hello</h1>
+      <button onClick={refetch}>refetch</button>
+      <h2>{loading && "Loading"}</h2>
+      <h1>{!loading && JSON.stringify(data)}</h1>
     </div>
   );
 }
